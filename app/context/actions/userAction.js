@@ -43,6 +43,7 @@ export const loginUser = async (
   try {
     let res = await requester.post("/login-user", value);
     const { data } = res;
+    console.log(data, "data me");
     if (data.message === "user does not exist") {
       Alert.alert(null, "This user does not exist");
       setValue((prevState) => ({
@@ -52,6 +53,16 @@ export const loginUser = async (
       return;
     } else if (data.message === "Invalid password") {
       Alert.alert(null, "Incorrect password");
+      setValue((prevState) => ({
+        ...prevState,
+        loading: false,
+      }));
+      return;
+    } else if (data.message === "too many requests") {
+      Alert.alert(
+        null,
+        "You sent too many requests. Please wait a while then try again"
+      );
       setValue((prevState) => ({
         ...prevState,
         loading: false,
