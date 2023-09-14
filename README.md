@@ -1,14 +1,12 @@
-# Expo Router Example
+## 📝 About
 
-Use [`expo-router`](https://expo.github.io/router) to build native navigation using files in the `app/` directory.
+Welcome to the Shopit mobile app, your ultimate destination for hassle-free online shopping! Built with Expo, our app offers a seamless and enjoyable shopping experience right at your fingertips.
 
-## 🚀 How to use
+### 🌟 Key Features
 
-```sh
-npx create-expo-app -e with-router
-```
+- Browse a vast selection of products from various categories.
+- User-friendly interface for a smooth shopping journey.
 
-## 📝 Notes
+## 🚀 Get the app
 
-- [Expo Router: Docs](https://expo.github.io/router)
-- [Expo Router: Repo](https://github.com/expo/router)
+[Get it here](https://expo.github.io/router)
