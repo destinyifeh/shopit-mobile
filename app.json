@@ -5,6 +5,31 @@
       "bundler": "metro"
     },
     "name": "shopit",
-    "slug": "shopit"
+    "slug": "shopit",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+
+    "splash": {
+      "image": "./assets/splash_icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "androidStatusBar": {
+      "backgroundColor": "#ffff",
+      "translucent": false
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "version": "1.0.0",
+
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "versionCode": 1,
+      "package": "com.destech.shopit"
+    }
   }
 }
