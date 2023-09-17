@@ -28,7 +28,13 @@ export const Products = ({
       : null;
   const checkExist = () => {
     return (
-      <Text style={{ marginTop: 20, fontSize: 18 }}>
+      <Text
+        style={{
+          marginTop: 20,
+          fontSize: 18,
+          color: state.darkTheme ? "white" : "black",
+        }}
+      >
         {checkItem === undefined || checkItem === null
           ? `No ${option} available yet!`
           : null}

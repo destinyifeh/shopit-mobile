@@ -54,7 +54,7 @@ export default function Likes() {
             style={{
               textAlign: "center",
               top: 20,
-              color: state.darkTheme ? "grey" : "black",
+              color: state.darkTheme ? "white" : "black",
             }}
           >
             Your likes Item

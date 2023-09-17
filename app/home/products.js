@@ -58,7 +58,14 @@ const ProductsScreen = () => {
             }}
           />
         ) : (
-          <Text style={{ textAlign: "center" }}>No product available yet!</Text>
+          <Text
+            style={{
+              textAlign: "center",
+              color: state.darkTheme ? "white" : "black",
+            }}
+          >
+            No product available yet!
+          </Text>
         )}
       </>
     );
