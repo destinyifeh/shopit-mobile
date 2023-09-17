@@ -8,28 +8,36 @@
     "slug": "shopit",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
-
     "splash": {
-      "image": "./assets/splash_icon.png",
+      "image": "./assets/ic_launcher_foreground.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#FFFFFF"
     },
     "androidStatusBar": {
       "backgroundColor": "#ffff",
       "translucent": false
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/4ab49f51-2f53-4f30-aff0-c39cc84d0298"
     },
     "version": "1.0.0",
-
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icon.png",
+        "foregroundImage": "./assets/android/res/mipmap-xxxhdpi/ic_launcher.png",
         "backgroundColor": "#FFFFFF"
       },
       "versionCode": 1,
       "package": "com.destech.shopit"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "4ab49f51-2f53-4f30-aff0-c39cc84d0298"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "ios": {}
   }
 }
