@@ -158,7 +158,7 @@ export const MainProducts = ({ item, getLike, itemState }) => {
           })
         }
       >
-        <Text
+        {/* <Text
           style={{
             width: 100,
             position: "absolute",
@@ -170,7 +170,7 @@ export const MainProducts = ({ item, getLike, itemState }) => {
         >
           Get the best and the affordable
           {item.label}
-        </Text>
+        </Text> */}
         <TouchableOpacity
           style={{
             position: "absolute",
@@ -197,7 +197,7 @@ export const MainProducts = ({ item, getLike, itemState }) => {
             top: 35,
             zIndex: 1,
             right: 5,
-            color: "white",
+            color: "red",
           }}
         >
           {item.likedBy === userState.user._id + item._id ? "liked" : null}
@@ -225,7 +225,7 @@ export const LikesProducts = ({ item, getLike, itemState }) => {
           })
         }
       >
-        <Text
+        {/* <Text
           style={{
             width: 100,
             position: "absolute",
@@ -237,7 +237,7 @@ export const LikesProducts = ({ item, getLike, itemState }) => {
         >
           Get the best and the affordable
           {item.label}
-        </Text>
+        </Text> */}
         <TouchableOpacity
           style={{
             position: "absolute",
@@ -264,7 +264,7 @@ export const LikesProducts = ({ item, getLike, itemState }) => {
             top: 35,
             zIndex: 1,
             right: 5,
-            color: "white",
+            color: "red",
           }}
         >
           {item.likedBy === userState.user._id + item._id ? "liked" : null}

@@ -47,7 +47,6 @@ export default function AddItem({ refRBSheet, closeRBSheet }) {
     try {
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
         allowsMultipleSelection: false,
         quality: 1,
         aspect: [4, 3],

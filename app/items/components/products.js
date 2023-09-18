@@ -94,7 +94,7 @@ export const Products = ({
                   })
                 }
               >
-                <Text
+                {/* <Text
                   style={{
                     width: 100,
                     position: "absolute",
@@ -104,9 +104,8 @@ export const Products = ({
                     color: "white",
                   }}
                 >
-                  {/* Get the best and the affordable */}
                   {item.label}
-                </Text>
+                </Text> */}
                 <>
                   {isAdmin ? (
                     <View
@@ -181,7 +180,7 @@ export const Products = ({
                         zIndex: 1,
                         right: 5,
                         top: 10,
-                        backgroundColor: "white",
+                        backgroundColor: "#FAF9F6",
                         borderRadius: 50,
                         padding: 5,
                       }}
@@ -207,7 +206,7 @@ export const Products = ({
                     top: 35,
                     zIndex: 1,
                     right: 5,
-                    color: "white",
+                    color: "red",
                   }}
                 >
                   {item.likedBy === userState.user._id + item._id
@@ -216,6 +215,8 @@ export const Products = ({
                 </Text>
 
                 <Image
+                  resizeMode="contain"
+                  resizeMethod="auto"
                   loadingIndicatorSource={<Text>Image loading....</Text>}
                   source={{ uri: item.image }}
                   style={{

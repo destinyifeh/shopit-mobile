@@ -130,7 +130,7 @@ export default function SearchItem({
                           })
                         }
                       >
-                        <Text
+                        {/* <Text
                           style={{
                             width: 100,
                             position: "absolute",
@@ -141,7 +141,7 @@ export default function SearchItem({
                           }}
                         >
                           {item.label}
-                        </Text>
+                        </Text> */}
                         <>
                           {isAdmin ? (
                             <View
@@ -259,7 +259,7 @@ export default function SearchItem({
                             top: 35,
                             zIndex: 1,
                             right: 5,
-                            color: "white",
+                            color: "red",
                           }}
                         >
                           {item.likedBy === userState.user._id + item._id
@@ -268,6 +268,7 @@ export default function SearchItem({
                         </Text>
 
                         <Image
+                          resizeMode="contain"
                           source={{ uri: item.image }}
                           style={{ width: 150, height: 200, borderRadius: 10 }}
                         />

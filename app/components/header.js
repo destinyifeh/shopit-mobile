@@ -95,7 +95,7 @@ export default function Header(props) {
               zIndex: 1,
             }}
           >
-            {notificationRecord?.length}
+            {username ? notificationRecord?.length : null}
           </Text>
           <Ionicons
             size={30}

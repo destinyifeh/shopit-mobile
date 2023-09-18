@@ -66,7 +66,7 @@ export default function Cart(props) {
               <PricingCard
                 key={item._id}
                 title={item.title}
-                price={`$${item.price}`}
+                price={`N${item.price}`}
                 info={[item.desc]}
                 button={{
                   title: "Add to Cart",
