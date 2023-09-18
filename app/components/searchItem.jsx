@@ -73,7 +73,7 @@ export default function SearchItem({
           style={{ paddingLeft: 5 }}
           onPress={() => (refRBSheet.current?.close(), setQuery(""))}
         >
-          <EvilIcons name="arrow-left" size={30} />
+          <EvilIcons name="arrow-left" size={30} style={{ padding: 5 }} />
         </TouchableOpacity>
         <H3
           style={{

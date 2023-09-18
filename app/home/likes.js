@@ -52,6 +52,7 @@ export default function Likes() {
         >
           <Text
             style={{
+              fontSize: 18,
               textAlign: "center",
               top: 20,
               color: state.darkTheme ? "white" : "black",

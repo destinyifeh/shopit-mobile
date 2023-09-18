@@ -110,6 +110,7 @@ export default function Header2(props) {
             position: "absolute",
             top: 0,
             zIndex: 1,
+            bottom: 0,
           }}
           color={state.darkTheme ? "white" : "black"}
         />

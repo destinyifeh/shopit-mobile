@@ -1,18 +1,18 @@
 import { Entypo } from "@expo/vector-icons";
 import { Button, Input } from "@rneui/themed";
 import React from "react";
-import { KeyboardAvoidingView, ScrollView } from "react-native";
+import { Alert, KeyboardAvoidingView, Linking, ScrollView } from "react-native";
 import { H2 } from "./Tags";
 import BottomSheet from "./bottomSheet";
 export default function Contact({ refRBSheet, closeRBSheet }) {
   const initialState = {
-    email: "",
+    subject: "",
     message: "",
     loading: false,
   };
   const [value, setValue] = React.useState(initialState);
   const [errorMessage, setErrorMessage] = React.useState({
-    email: "",
+    subject: "",
     message: "",
   });
 
@@ -23,8 +23,8 @@ export default function Contact({ refRBSheet, closeRBSheet }) {
   const handleSubmit = () => {
     let error;
     setValue({ ...value, ["loading"]: true });
-    if (!value.email) {
-      error = "Please enter your email";
+    if (!value.subject) {
+      error = "Please enter subject";
       setErrorMessage({
         ...errorMessage,
         message: "",
@@ -33,12 +33,12 @@ export default function Contact({ refRBSheet, closeRBSheet }) {
       });
       setValue({ ...value, ["loading"]: false });
       return false;
-    } else if (value.email?.length < 5) {
-      error = "Please email should be at least 5 characters";
+    } else if (value.subject?.length < 5) {
+      error = "Please subject or title should be at least 5 characters";
       setErrorMessage({
         ...errorMessage,
         message: "",
-        ["email"]: error,
+        ["subject"]: error,
       });
       setValue({ ...value, ["loading"]: false });
       return false;
@@ -46,7 +46,7 @@ export default function Contact({ refRBSheet, closeRBSheet }) {
       error = "Please enter your message";
       setErrorMessage({
         ...errorMessage,
-        email: "",
+        subject: "",
         ["message"]: error,
       });
       setValue({ ...value, ["loading"]: false });
@@ -56,6 +56,19 @@ export default function Contact({ refRBSheet, closeRBSheet }) {
         setValue({ ...value, ["loading"]: false });
       }, 2000);
       setErrorMessage("");
+
+      let url = `mailto:destechofficial@gmail.com?subject=${value.subject}&body=${value.message}`;
+      Linking.openURL(url)
+        .then((res) => {
+          console.log("Email opened", res);
+          if (res === true) {
+            refRBSheet.current?.close();
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          Alert.alert(null, "Oops! An error occured, try again.");
+        });
     }
   };
   return (
@@ -67,20 +80,19 @@ export default function Contact({ refRBSheet, closeRBSheet }) {
         <H2 style={{ textAlign: "center", marginBottom: 20 }}>Text Us </H2>
         <KeyboardAvoidingView behavior="height">
           <Input
-            value={value?.email}
-            keyboardType="email-address"
-            label="Email"
-            leftIcon={<Entypo name="email" />}
-            placeholder="Enter your email..."
-            onChangeText={(val) => handleChange("email", val)}
-            errorMessage={errorMessage.email ? errorMessage.email : ""}
+            value={value?.subject}
+            label="Subject"
+            leftIcon={<Entypo name="pencil" />}
+            placeholder="Enter subject/title..."
+            onChangeText={(val) => handleChange("subject", val)}
+            errorMessage={errorMessage.subject ? errorMessage.subject : ""}
           />
+
           <Input
             label="Message"
             value={value?.message}
             leftIcon={<Entypo name="message" />}
             placeholder="Enter your message..."
-            secureTextEntry
             onChangeText={(val) => handleChange("message", val)}
             errorMessage={errorMessage.message ? errorMessage.message : ""}
           />

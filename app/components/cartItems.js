@@ -78,7 +78,7 @@ export default function CartItems() {
               style={{
                 textAlign: "center",
                 marginVertical: 15,
-                color: state.darkTheme ? "grey" : "black",
+                color: state.darkTheme ? "white" : "black",
               }}
             >
               Your cart items
@@ -103,7 +103,7 @@ export default function CartItems() {
                 <Text
                   style={{
                     textAlign: "center",
-                    color: state.darkTheme ? "grey" : "black",
+                    color: state.darkTheme ? "white" : "black",
                   }}
                 >
                   Product
@@ -111,7 +111,7 @@ export default function CartItems() {
                 <Text
                   style={{
                     textAlign: "center",
-                    color: state.darkTheme ? "grey" : "black",
+                    color: state.darkTheme ? "white" : "black",
                   }}
                 >
                   Price
@@ -119,7 +119,7 @@ export default function CartItems() {
                 <Text
                   style={{
                     textAlign: "center",
-                    color: state.darkTheme ? "grey" : "black",
+                    color: state.darkTheme ? "white" : "black",
                   }}
                 >
                   Quantity
@@ -183,7 +183,7 @@ export default function CartItems() {
                 style={{
                   textAlign: "center",
                   marginTop: 10,
-                  color: state.darkTheme ? "grey" : "black",
+                  color: state.darkTheme ? "white" : "black",
                 }}
               >
                 Total: ${totalPrice && totalPrice}
@@ -218,7 +218,7 @@ export default function CartItems() {
           style={{
             textAlign: "center",
             marginVertical: 15,
-            color: state.darkTheme ? "grey" : "black",
+            color: state.darkTheme ? "white" : "black",
           }}
         >
           No cart items available

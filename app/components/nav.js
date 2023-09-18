@@ -149,6 +149,7 @@ export const Nav = ({ refRBSheet }) => {
               name="arrow-left"
               size={30}
               color={state.darkTheme ? "white" : "black"}
+              style={{ padding: 5 }}
             />
           </TouchableOpacity>
           <View
@@ -478,60 +479,63 @@ export const Nav = ({ refRBSheet }) => {
                   </Text>
                 </TouchableOpacity>
               )}
-              {user?.username && (
-                <>
-                  <TouchableOpacity
-                    style={{
-                      marginVertical: 10,
-                      flexDirection: "row",
-                      alignItems: "center",
-                    }}
-                    onPress={() =>
-                      navigation.reset({
+
+              <TouchableOpacity
+                style={{
+                  marginVertical: 10,
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+                onPress={() =>
+                  !user?.username
+                    ? Alert.alert(null, "Login to view your likes")
+                    : navigation.reset({
                         index: 0,
                         routes: [{ name: "likes" }],
                       })
-                    }
-                  >
-                    <EvilIcons
-                      name="like"
-                      size={30}
-                      color={state.darkTheme ? "grey" : "black"}
-                    />
-                    <Text
-                      style={{
-                        marginLeft: 5,
-                        color: state.darkTheme ? "grey" : "black",
-                      }}
-                    >
-                      Likes
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={{
-                      marginVertical: 10,
-                      flexDirection: "row",
-                      alignItems: "center",
-                    }}
-                    onPress={() => navigation.navigate("notification")}
-                  >
-                    <EvilIcons
-                      name="bell"
-                      size={30}
-                      color={state.darkTheme ? "white" : "black"}
-                    />
-                    <Text
-                      style={{
-                        marginLeft: 5,
+                }
+              >
+                <EvilIcons
+                  name="like"
+                  size={30}
+                  color={state.darkTheme ? "white" : "black"}
+                />
+                <Text
+                  style={{
+                    marginLeft: 5,
+                    color: state.darkTheme ? "white" : "black",
+                  }}
+                >
+                  Likes
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  marginVertical: 10,
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+                onPress={() =>
+                  !user?.username
+                    ? Alert.alert(null, "Login to view notifications")
+                    : navigation.navigate("notification")
+                }
+              >
+                <EvilIcons
+                  name="bell"
+                  size={30}
+                  color={state.darkTheme ? "white" : "black"}
+                />
+                <Text
+                  style={{
+                    marginLeft: 5,
 
-                        color: state.darkTheme ? "white" : "black",
-                      }}
-                    >
-                      Notifications
-                    </Text>
-                  </TouchableOpacity>
-                </>
-              )}
+                    color: state.darkTheme ? "white" : "black",
+                  }}
+                >
+                  Notifications
+                </Text>
+              </TouchableOpacity>
               <View
                 style={{
                   marginVertical: 10,
