@@ -10,7 +10,7 @@ export default function TheMarquee(props) {
     numOfReps: -1,
   });
   return (
-    <View>
+    <View style={{ padding: 0 }}>
       <Marquee
         key={`${state.directionHorizontal}-${state.duration}-${state.numOfReps}`}
         label={"Hey there, welcome to shopit, we are the best in town!"}

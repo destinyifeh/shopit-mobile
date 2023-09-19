@@ -67,7 +67,7 @@ export default function Cart(props) {
                 key={item._id}
                 title={item.title}
                 price={`N${item.price}`}
-                info={[item.desc]}
+                info={["Beautiful and wonderful" + " " + item.desc]}
                 button={{
                   title: "Add to Cart",
                   icon: "shopping-cart",

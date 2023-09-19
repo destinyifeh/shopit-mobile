@@ -9,11 +9,11 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { Badge } from "react-native-ui-lib";
 import BottomSheet from "../components/bottomSheet";
 import { Loader } from "../components/loader";
 import { StoreContext } from "../context/store";
 import UpdateItem from "../items/components/update-item";
-
 import { checkExist, getLike } from "../utils/helper";
 import { H3 } from "./Tags";
 export default function SearchItem({
@@ -142,6 +142,18 @@ export default function SearchItem({
                         >
                           {item.label}
                         </Text> */}
+                        <Badge
+                          label={`N${item.price}`}
+                          size={18}
+                          labelStyle={{ color: "grey" }}
+                          backgroundColor="#FAF9F6"
+                          containerStyle={{
+                            position: "absolute",
+                            zIndex: 1,
+                            top: 10,
+                            left: 5,
+                          }}
+                        />
                         <>
                           {isAdmin ? (
                             <View

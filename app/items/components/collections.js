@@ -8,6 +8,7 @@ import {
   View,
   useWindowDimensions,
 } from "react-native";
+import { Badge } from "react-native-ui-lib";
 import { H2, H3 } from "../../components/Tags";
 import { StoreContext } from "../../context/store";
 export const NewCollections = (props) => {
@@ -171,6 +172,18 @@ export const MainProducts = ({ item, getLike, itemState }) => {
           Get the best and the affordable
           {item.label}
         </Text> */}
+        <Badge
+          label={`N${item.price}`}
+          size={18}
+          labelStyle={{ color: "grey" }}
+          backgroundColor="#FAF9F6"
+          containerStyle={{
+            position: "absolute",
+            zIndex: 1,
+            top: 10,
+            left: 5,
+          }}
+        />
         <TouchableOpacity
           style={{
             position: "absolute",
@@ -238,6 +251,18 @@ export const LikesProducts = ({ item, getLike, itemState }) => {
           Get the best and the affordable
           {item.label}
         </Text> */}
+        <Badge
+          label={`N${item.price}`}
+          size={18}
+          labelStyle={{ color: "grey" }}
+          backgroundColor="#FAF9F6"
+          containerStyle={{
+            position: "absolute",
+            zIndex: 1,
+            top: 10,
+            left: 5,
+          }}
+        />
         <TouchableOpacity
           style={{
             position: "absolute",

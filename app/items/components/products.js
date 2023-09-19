@@ -1,12 +1,11 @@
 import { Entypo, FontAwesome } from "@expo/vector-icons";
-
 import { useNavigation } from "expo-router";
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Badge } from "react-native-ui-lib";
 import { deleteItem } from "../../context/actions/itemAction";
 import { StoreContext } from "../../context/store";
 import { getLike } from "../../utils/helper";
-
 export const Products = ({
   updateItemRef,
   isAdmin,
@@ -101,11 +100,27 @@ export const Products = ({
                     zIndex: 1,
                     top: 10,
                     left: 5,
-                    color: "white",
+                    color: "red",
+
+                    width: 50,
+                    textAlign: "center",
                   }}
                 >
-                  {item.label}
+                  N{item.price}
                 </Text> */}
+                <Badge
+                  label={`N${item.price}`}
+                  size={18}
+                  labelStyle={{ color: "grey" }}
+                  backgroundColor="#FAF9F6"
+                  containerStyle={{
+                    position: "absolute",
+                    zIndex: 1,
+                    top: 10,
+                    left: 5,
+                  }}
+                />
+
                 <>
                   {isAdmin ? (
                     <View

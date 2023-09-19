@@ -150,7 +150,7 @@ export default function CartItems() {
                       />
                     </View>
                     <Text style={{ textAlign: "center", marginLeft: 5 }}>
-                      ${item.price}
+                      N{item.price}
                     </Text>
                     <View
                       style={{ flexDirection: "row", justifyContent: "center" }}
@@ -186,7 +186,7 @@ export default function CartItems() {
                   color: state.darkTheme ? "white" : "black",
                 }}
               >
-                Total: ${totalPrice && totalPrice}
+                Total: N{totalPrice && totalPrice}
               </H3>
             </View>
           </ScrollView>
