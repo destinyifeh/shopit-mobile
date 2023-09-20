@@ -39,18 +39,20 @@ export const addItem = async (value, dispatchItem, setValue, navigation) => {
     Alert.alert("Error", "Oops! An error occured, try again");
   }
 };
-export const getItems = async (dispatchItem) => {
+export const getItems = async (dispatchItem, setLoading) => {
   try {
+    setLoading(true);
     let res = await requester.get("/items");
+    console.log(res.data, "items data");
     dispatchItem({
       type: actionTypes.GET_ITEMS,
       payload: res?.data,
       pending: false,
       fulfilled: true,
     });
+    setLoading(false);
   } catch (err) {
     // dispatchItem({ type: actionTypes.ADD_ITEM, payload: err?.message });
-
     console.log(err.message, "error");
   }
 };

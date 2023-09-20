@@ -1,6 +1,7 @@
 import React from "react";
 import { ScrollView, Text, TouchableOpacity } from "react-native";
 import { Loader } from "../components/loader";
+import { getItems } from "../context/actions/itemAction";
 import { StoreContext } from "../context/store";
 import { NewCollections } from "./components/collections";
 import { Products } from "./components/products";
@@ -20,12 +21,13 @@ export default function Items({
     opt3: false,
     opt4: false,
   };
-  const { itemState } = React.useContext(StoreContext);
+  const { itemState, dispatchItem } = React.useContext(StoreContext);
   const [option, setOption] = React.useState(initialState);
   const [val, setVal] = React.useState("");
   const [loading, setLoading] = React.useState("");
   React.useEffect(() => {
     getUpdatedState();
+    dispatchItem(getItems(dispatchItem, setLoading));
   }, [updatedId]);
 
   const getUpdatedState = () => {
