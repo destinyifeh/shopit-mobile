@@ -44,13 +44,15 @@ export const getItems = async (dispatchItem, setLoading) => {
     setLoading(true);
     let res = await requester.get("/items");
     console.log(res.data, "items data");
-    dispatchItem({
-      type: actionTypes.GET_ITEMS,
-      payload: res?.data,
-      pending: false,
-      fulfilled: true,
-    });
-    setLoading(false);
+    if (res.data?.length > 0) {
+      dispatchItem({
+        type: actionTypes.GET_ITEMS,
+        payload: res?.data,
+        pending: false,
+        fulfilled: true,
+      });
+      setLoading(false);
+    }
   } catch (err) {
     // dispatchItem({ type: actionTypes.ADD_ITEM, payload: err?.message });
     console.log(err.message, "error");

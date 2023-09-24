@@ -16,6 +16,11 @@ import { StoreContext } from "../context/store";
 import UpdateItem from "../items/components/update-item";
 import { checkExist, getLike } from "../utils/helper";
 import { H3 } from "./Tags";
+import ForgotPassword from "./users/forgot-passsword";
+import Login from "./users/login";
+import ResetPassword from "./users/reset-password";
+import Signup from "./users/signup";
+import VerifyToken from "./users/verify-token";
 export default function SearchItem({
   loading,
   setQuery,
@@ -28,6 +33,12 @@ export default function SearchItem({
 }) {
   const [dropDown, setDropDown] = React.useState("");
   const updateItemRef = React.useRef();
+
+  const loginRef = React.useRef();
+  const signupRef = React.useRef();
+  const forgotPasswordRef = React.useRef();
+  const resetPasswordRef = React.useRef();
+  const verifyRef = React.useRef();
   const navigation = useNavigation();
   const searchQuery = JSON.stringify(query.trim());
   const q = JSON.parse(searchQuery);
@@ -57,6 +68,35 @@ export default function SearchItem({
     const checkItem = itemState.items.find((item) => item._id === productId);
     if (checkItem) {
       setDropDown("");
+    }
+  };
+
+  const closeRBSheet = (route) => {
+    if (route === "login") {
+      loginRef.current?.open();
+      signupRef.current?.close();
+      forgotPasswordRef.current?.close();
+    } else if (route === "signup") {
+      signupRef.current?.open();
+      loginRef.current?.close();
+    } else if (route === "forgotPassword") {
+      forgotPasswordRef.current?.open();
+      loginRef.current?.close();
+      verifyRef.current?.close();
+      resetPasswordRef.current?.close();
+    } else if (route === "verifyToken") {
+      verifyRef.current?.open();
+      forgotPasswordRef.current?.close();
+    } else if (route === "resetPassword") {
+      verifyRef.current?.close();
+      resetPasswordRef.current?.open();
+    } else if (route === "finalStep") {
+      resetPasswordRef.current?.close();
+      loginRef.current?.close();
+    } else if (route === "updateAccount") {
+      updateAccountRef.current?.close();
+    } else {
+      return null;
     }
   };
 
@@ -249,7 +289,8 @@ export default function SearchItem({
                                   item._id,
                                   itemState,
                                   userState,
-                                  dispatchItem
+                                  dispatchItem,
+                                  loginRef
                                 )
                               }
                             >
@@ -294,6 +335,18 @@ export default function SearchItem({
         )}
         <UpdateItem updateId={updateId} refRBSheet={updateItemRef} />
       </ScrollView>
+
+      <Login refRBSheet={loginRef} closeRBSheet={closeRBSheet} />
+      <Signup refRBSheet={signupRef} closeRBSheet={closeRBSheet} />
+      <ForgotPassword
+        refRBSheet={forgotPasswordRef}
+        closeRBSheet={closeRBSheet}
+      />
+      <ResetPassword
+        refRBSheet={resetPasswordRef}
+        closeRBSheet={closeRBSheet}
+      />
+      <VerifyToken refRBSheet={verifyRef} closeRBSheet={closeRBSheet} />
     </BottomSheet>
   );
 }

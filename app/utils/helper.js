@@ -4,12 +4,23 @@ export const getLike = async (
   productId,
   itemState,
   userState,
-  dispatchItem
+  dispatchItem,
+  loginRef
 ) => {
   const userId = userState?.user._id;
 
   if (!userId) {
-    Alert.alert(null, "Login to like an item");
+    Alert.alert(null, "Login to like an item", [
+      {
+        text: "Cancel",
+        style: "cancel",
+      },
+      {
+        text: "Login",
+        onPress: () => loginRef.current?.open(),
+      },
+    ]);
+
     return;
   }
   const checkProductId = itemState.items.find(

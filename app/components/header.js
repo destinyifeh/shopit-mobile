@@ -11,6 +11,11 @@ import { H2 } from "./Tags";
 import { Nav } from "./nav";
 import { SearchBar } from "./searchBar";
 import SearchItem from "./searchItem";
+import ForgotPassword from "./users/forgot-passsword";
+import Login from "./users/login";
+import ResetPassword from "./users/reset-password";
+import Signup from "./users/signup";
+import VerifyToken from "./users/verify-token";
 export default function Header(props) {
   const { state, userState, dispatchItem, itemState } =
     useContext(StoreContext);
@@ -19,6 +24,13 @@ export default function Header(props) {
   const [notificationRecord, setNotificationRecord] = React.useState("");
   const refRBSheet = React.useRef();
   const searchRefRBSheet = React.useRef();
+
+  const loginRef = React.useRef();
+  const signupRef = React.useRef();
+  const forgotPasswordRef = React.useRef();
+  const resetPasswordRef = React.useRef();
+  const verifyRef = React.useRef();
+
   const navigation = useNavigation();
   const { notifications } = itemState;
   const { user } = userState;
@@ -44,6 +56,48 @@ export default function Header(props) {
   };
 
   const username = userState?.user?.username;
+
+  const guestAlert = (value) => {
+    return Alert.alert(null, value, [
+      {
+        text: "Cancel",
+        style: "cancel",
+      },
+      {
+        text: "Login",
+        onPress: () => loginRef.current?.open(),
+      },
+    ]);
+  };
+
+  const closeRBSheet = (route) => {
+    if (route === "login") {
+      loginRef.current?.open();
+      signupRef.current?.close();
+      forgotPasswordRef.current?.close();
+    } else if (route === "signup") {
+      signupRef.current?.open();
+      loginRef.current?.close();
+    } else if (route === "forgotPassword") {
+      forgotPasswordRef.current?.open();
+      loginRef.current?.close();
+      verifyRef.current?.close();
+      resetPasswordRef.current?.close();
+    } else if (route === "verifyToken") {
+      verifyRef.current?.open();
+      forgotPasswordRef.current?.close();
+    } else if (route === "resetPassword") {
+      verifyRef.current?.close();
+      resetPasswordRef.current?.open();
+    } else if (route === "finalStep") {
+      resetPasswordRef.current?.close();
+      loginRef.current?.close();
+    } else if (route === "updateAccount") {
+      updateAccountRef.current?.close();
+    } else {
+      return null;
+    }
+  };
 
   return (
     <View
@@ -81,7 +135,7 @@ export default function Header(props) {
           }}
           onPress={() =>
             !user._id
-              ? Alert.alert(null, "Login to view notifications")
+              ? guestAlert("Login to view notifications")
               : navigation.navigate("notification")
           }
         >
@@ -147,6 +201,17 @@ export default function Header(props) {
       <View>
         <TheMarquee state={state} />
         <Nav refRBSheet={refRBSheet} />
+        <Login refRBSheet={loginRef} closeRBSheet={closeRBSheet} />
+        <Signup refRBSheet={signupRef} closeRBSheet={closeRBSheet} />
+        <ForgotPassword
+          refRBSheet={forgotPasswordRef}
+          closeRBSheet={closeRBSheet}
+        />
+        <ResetPassword
+          refRBSheet={resetPasswordRef}
+          closeRBSheet={closeRBSheet}
+        />
+        <VerifyToken refRBSheet={verifyRef} closeRBSheet={closeRBSheet} />
         <SearchItem
           loading={loading}
           setLoading={setLoading}

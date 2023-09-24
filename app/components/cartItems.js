@@ -12,8 +12,10 @@ import {
 import { StoreContext } from "../context/store";
 import { getData, saveData } from "../utils/storage";
 import { H3 } from "./Tags";
+import { ItemPayment } from "./payment";
 export default function CartItems() {
   const { state } = useContext(StoreContext);
+  const [showPaymentModal, setShowPaymentModal] = React.useState(false);
   const navigation = useNavigation();
   React.useEffect(() => {
     getSavedItem();
@@ -192,11 +194,13 @@ export default function CartItems() {
           </ScrollView>
 
           <TouchableOpacity
-            onPress={() =>
-              Alert.alert(
-                "Oops!",
-                "No payment options available yet, please come back."
-              )
+            onPress={
+              () => setShowPaymentModal(!showPaymentModal)
+
+              // Alert.alert(
+              //   "Oops!",
+              //   "No payment options available yet, please come back."
+              // )
             }
             style={{
               position: "absolute",
@@ -223,6 +227,12 @@ export default function CartItems() {
         >
           No cart items available
         </H3>
+      )}
+      {showPaymentModal && (
+        <ItemPayment
+          price={totalPrice}
+          setShowPaymentModal={setShowPaymentModal}
+        />
       )}
     </>
   );

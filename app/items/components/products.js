@@ -3,6 +3,11 @@ import { useNavigation } from "expo-router";
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Badge } from "react-native-ui-lib";
+import ForgotPassword from "../../components/users/forgot-passsword";
+import Login from "../../components/users/login";
+import ResetPassword from "../../components/users/reset-password";
+import Signup from "../../components/users/signup";
+import VerifyToken from "../../components/users/verify-token";
 import { deleteItem } from "../../context/actions/itemAction";
 import { StoreContext } from "../../context/store";
 import { getLike } from "../../utils/helper";
@@ -14,6 +19,12 @@ export const Products = ({
   setUpdateId,
 }) => {
   const navigation = useNavigation();
+
+  const loginRef = React.useRef();
+  const signupRef = React.useRef();
+  const forgotPasswordRef = React.useRef();
+  const resetPasswordRef = React.useRef();
+  const verifyRef = React.useRef();
   const [deletingId, setDeletingId] = React.useState("");
 
   const [deleting, setDeleting] = React.useState(false);
@@ -66,34 +77,67 @@ export const Products = ({
     }
   };
 
+  const closeRBSheet = (route) => {
+    if (route === "login") {
+      loginRef.current?.open();
+      signupRef.current?.close();
+      forgotPasswordRef.current?.close();
+    } else if (route === "signup") {
+      signupRef.current?.open();
+      loginRef.current?.close();
+    } else if (route === "forgotPassword") {
+      forgotPasswordRef.current?.open();
+      loginRef.current?.close();
+      verifyRef.current?.close();
+      resetPasswordRef.current?.close();
+    } else if (route === "verifyToken") {
+      verifyRef.current?.open();
+      forgotPasswordRef.current?.close();
+    } else if (route === "resetPassword") {
+      verifyRef.current?.close();
+      resetPasswordRef.current?.open();
+    } else if (route === "finalStep") {
+      resetPasswordRef.current?.close();
+      loginRef.current?.close();
+    } else if (route === "updateAccount") {
+      updateAccountRef.current?.close();
+    } else {
+      return null;
+    }
+  };
+
   return (
-    <View
-      style={{
-        flexDirection: "row",
-        justifyContent: "center",
-        flexWrap: "wrap",
-        columnGap: 15,
-      }}
-    >
-      {checkExist()}
-      {itemState.items.length > 0 &&
-        itemState.items
-          .filter((item) => item.label === option)
-          .map((item, idx) => {
-            return (
-              <TouchableOpacity
-                key={item._id}
-                style={{ marginVertical: 5 }}
-                onPress={() =>
-                  navigation.reset({
-                    index: 0,
-                    routes: [
-                      { name: "cart", params: { item: JSON.stringify(item) } },
-                    ],
-                  })
-                }
-              >
-                {/* <Text
+    <>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          columnGap: 15,
+        }}
+      >
+        {checkExist()}
+        {itemState.items.length > 0 &&
+          itemState.items
+            .filter((item) => item.label === option)
+            .map((item, idx) => {
+              return (
+                <TouchableOpacity
+                  key={item._id}
+                  style={{ marginVertical: 5 }}
+                  onPress={() =>
+                    navigation.reset({
+                      index: 0,
+                      routes: [
+                        {
+                          name: "cart",
+                          params: { item: JSON.stringify(item) },
+                        },
+                      ],
+                    })
+                  }
+                >
+                  {/* <Text
                   style={{
                     width: 100,
                     position: "absolute",
@@ -108,158 +152,178 @@ export const Products = ({
                 >
                   N{item.price}
                 </Text> */}
-                <Badge
-                  label={`N${item.price}`}
-                  size={18}
-                  labelStyle={{ color: "grey" }}
-                  backgroundColor="#FAF9F6"
-                  containerStyle={{
-                    position: "absolute",
-                    zIndex: 1,
-                    top: 10,
-                    left: 5,
-                  }}
-                />
+                  <Badge
+                    label={`N${item.price}`}
+                    size={18}
+                    labelStyle={{ color: "grey" }}
+                    backgroundColor="#FAF9F6"
+                    containerStyle={{
+                      position: "absolute",
+                      zIndex: 1,
+                      top: 10,
+                      left: 5,
+                    }}
+                  />
 
-                <>
-                  {isAdmin ? (
-                    <View
-                      style={{
-                        position: "absolute",
-                        zIndex: 1,
-                        right: 5,
-                        top: 10,
-                      }}
-                    >
-                      {dropDown !== item._id ? (
-                        <TouchableOpacity onPress={() => getDropDown(item._id)}>
-                          <Entypo
-                            name="menu"
-                            size={20}
-                            style={{
-                              backgroundColor: "white",
-                              borderRadius: 50,
-                              padding: 5,
-                              textAlign: "center",
-                            }}
-                          />
-                        </TouchableOpacity>
-                      ) : (
-                        <TouchableOpacity
-                          onPress={() => closeDropDown(item._id)}
-                        >
-                          <FontAwesome
-                            name="remove"
-                            size={20}
-                            style={{
-                              backgroundColor: "white",
-                              borderRadius: 50,
-                              padding: 5,
-                              textAlign: "center",
-                            }}
-                          />
-                        </TouchableOpacity>
-                      )}
-                      {dropDown === item._id ? (
-                        <View
-                          style={{
-                            marginTop: 10,
-                            backgroundColor: "black",
-                            padding: 10,
-                            borderRadius: 10,
-                          }}
-                        >
+                  <>
+                    {isAdmin ? (
+                      <View
+                        style={{
+                          position: "absolute",
+                          zIndex: 1,
+                          right: 5,
+                          top: 10,
+                        }}
+                      >
+                        {dropDown !== item._id ? (
                           <TouchableOpacity
-                            style={{ marginBottom: 5 }}
-                            onPress={() => (
-                              setUpdateId(item._id),
-                              updateItemRef.current?.open(),
-                              closeDropDown(item._id)
-                            )}
+                            onPress={() => getDropDown(item._id)}
                           >
-                            <Entypo name="pencil" size={20} color="white" />
+                            <Entypo
+                              name="menu"
+                              size={20}
+                              style={{
+                                backgroundColor: "white",
+                                borderRadius: 50,
+                                padding: 5,
+                                textAlign: "center",
+                              }}
+                            />
                           </TouchableOpacity>
+                        ) : (
                           <TouchableOpacity
-                            style={{ marginTop: 20 }}
-                            onPress={() => trashIt(item._id)}
+                            onPress={() => closeDropDown(item._id)}
                           >
-                            <Entypo name="trash" size={20} color="white" />
+                            <FontAwesome
+                              name="remove"
+                              size={20}
+                              style={{
+                                backgroundColor: "white",
+                                borderRadius: 50,
+                                padding: 5,
+                                textAlign: "center",
+                              }}
+                            />
                           </TouchableOpacity>
-                        </View>
-                      ) : null}
-                    </View>
-                  ) : (
-                    <TouchableOpacity
-                      style={{
-                        position: "absolute",
-                        zIndex: 1,
-                        right: 5,
-                        top: 10,
-                        backgroundColor: "#FAF9F6",
-                        borderRadius: 50,
-                        padding: 5,
-                      }}
-                      onPress={() =>
-                        getLike(item._id, itemState, userState, dispatchItem)
-                      }
-                    >
-                      <Entypo
-                        name="heart-outlined"
-                        size={20}
-                        color={
-                          item.likedBy === userState.user._id + item._id
-                            ? "red"
-                            : "grey"
+                        )}
+                        {dropDown === item._id ? (
+                          <View
+                            style={{
+                              marginTop: 10,
+                              backgroundColor: "black",
+                              padding: 10,
+                              borderRadius: 10,
+                            }}
+                          >
+                            <TouchableOpacity
+                              style={{ marginBottom: 5 }}
+                              onPress={() => (
+                                setUpdateId(item._id),
+                                updateItemRef.current?.open(),
+                                closeDropDown(item._id)
+                              )}
+                            >
+                              <Entypo name="pencil" size={20} color="white" />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                              style={{ marginTop: 20 }}
+                              onPress={() => trashIt(item._id)}
+                            >
+                              <Entypo name="trash" size={20} color="white" />
+                            </TouchableOpacity>
+                          </View>
+                        ) : null}
+                      </View>
+                    ) : (
+                      <TouchableOpacity
+                        style={{
+                          position: "absolute",
+                          zIndex: 1,
+                          right: 5,
+                          top: 10,
+                          backgroundColor: "#FAF9F6",
+                          borderRadius: 50,
+                          padding: 5,
+                        }}
+                        onPress={() =>
+                          getLike(
+                            item._id,
+                            itemState,
+                            userState,
+                            dispatchItem,
+                            loginRef
+                          )
                         }
-                      />
-                    </TouchableOpacity>
-                  )}
-                </>
-                <Text
-                  style={{
-                    position: "absolute",
-                    top: 35,
-                    zIndex: 1,
-                    right: 5,
-                    color: "red",
-                  }}
-                >
-                  {item.likedBy === userState.user._id + item._id
-                    ? "liked"
-                    : null}
-                </Text>
-
-                <Image
-                  resizeMode="contain"
-                  resizeMethod="auto"
-                  loadingIndicatorSource={<Text>Image loading....</Text>}
-                  source={{ uri: item.image }}
-                  style={{
-                    width: 150,
-                    height: 200,
-                    borderRadius: 10,
-                    opacity: state.darkTheme ? 0.5 : 1,
-                  }}
-                />
-                {deletingId === item._id && deleting === true && (
+                      >
+                        <Entypo
+                          name="heart-outlined"
+                          size={20}
+                          color={
+                            item.likedBy === userState.user._id + item._id
+                              ? "red"
+                              : "grey"
+                          }
+                        />
+                      </TouchableOpacity>
+                    )}
+                  </>
                   <Text
                     style={{
-                      backgroundColor: "black",
-                      padding: 5,
-                      borderRadius: 10,
                       position: "absolute",
-                      bottom: 10,
+                      top: 35,
                       zIndex: 1,
-                      color: "white",
-                      marginLeft: 50,
+                      right: 5,
+                      color: "red",
                     }}
                   >
-                    deleting...
+                    {item.likedBy === userState.user._id + item._id
+                      ? "liked"
+                      : null}
                   </Text>
-                )}
-              </TouchableOpacity>
-            );
-          })}
-    </View>
+
+                  <Image
+                    resizeMode="contain"
+                    resizeMethod="auto"
+                    loadingIndicatorSource={<Text>Image loading....</Text>}
+                    source={{ uri: item.image }}
+                    style={{
+                      width: 150,
+                      height: 200,
+                      borderRadius: 10,
+                      opacity: state.darkTheme ? 0.5 : 1,
+                    }}
+                  />
+                  {deletingId === item._id && deleting === true && (
+                    <Text
+                      style={{
+                        backgroundColor: "black",
+                        padding: 5,
+                        borderRadius: 10,
+                        position: "absolute",
+                        bottom: 10,
+                        zIndex: 1,
+                        color: "white",
+                        marginLeft: 50,
+                      }}
+                    >
+                      deleting...
+                    </Text>
+                  )}
+                </TouchableOpacity>
+              );
+            })}
+      </View>
+      <Login refRBSheet={loginRef} closeRBSheet={closeRBSheet} />
+      <Signup refRBSheet={signupRef} closeRBSheet={closeRBSheet} />
+      <ForgotPassword
+        refRBSheet={forgotPasswordRef}
+        closeRBSheet={closeRBSheet}
+      />
+      <ResetPassword
+        refRBSheet={resetPasswordRef}
+        closeRBSheet={closeRBSheet}
+      />
+      <VerifyToken refRBSheet={verifyRef} closeRBSheet={closeRBSheet} />
+    </>
   );
 };

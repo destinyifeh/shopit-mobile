@@ -144,7 +144,7 @@ export const NewCollections = (props) => {
   );
 };
 
-export const MainProducts = ({ item, getLike, itemState }) => {
+export const MainProducts = ({ item, getLike, itemState, loginRef }) => {
   const navigation = useNavigation();
   const { dispatchItem, userState } = useContext(StoreContext);
 
@@ -194,7 +194,9 @@ export const MainProducts = ({ item, getLike, itemState }) => {
             borderRadius: 50,
             padding: 5,
           }}
-          onPress={() => getLike(item._id, itemState, userState, dispatchItem)}
+          onPress={() =>
+            getLike(item._id, itemState, userState, dispatchItem, loginRef)
+          }
         >
           <Entypo
             name="heart-outlined"

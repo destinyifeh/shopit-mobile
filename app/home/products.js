@@ -9,6 +9,11 @@ import {
   View,
 } from "react-native";
 import { Loader } from "../components/loader";
+import ForgotPassword from "../components/users/forgot-passsword";
+import Login from "../components/users/login";
+import ResetPassword from "../components/users/reset-password";
+import Signup from "../components/users/signup";
+import VerifyToken from "../components/users/verify-token";
 import { getItems } from "../context/actions/itemAction";
 import { StoreContext } from "../context/store";
 import { MainProducts } from "../items/components/collections";
@@ -19,6 +24,12 @@ const ProductsScreen = () => {
   const { itemState, dispatchItem, state } = React.useContext(StoreContext);
   const navigation = useNavigation();
   const { width } = Dimensions.get("window");
+
+  const loginRef = React.useRef();
+  const signupRef = React.useRef();
+  const forgotPasswordRef = React.useRef();
+  const resetPasswordRef = React.useRef();
+  const verifyRef = React.useRef();
 
   React.useEffect(() => {
     dispatchItem(getItems(dispatchItem));
@@ -53,6 +64,7 @@ const ProductsScreen = () => {
                   item={item}
                   itemState={itemState}
                   getLike={getLike}
+                  loginRef={loginRef}
                 />
               );
             }}
@@ -71,6 +83,35 @@ const ProductsScreen = () => {
     );
   };
 
+  const closeRBSheet = (route) => {
+    if (route === "login") {
+      loginRef.current?.open();
+      signupRef.current?.close();
+      forgotPasswordRef.current?.close();
+    } else if (route === "signup") {
+      signupRef.current?.open();
+      loginRef.current?.close();
+    } else if (route === "forgotPassword") {
+      forgotPasswordRef.current?.open();
+      loginRef.current?.close();
+      verifyRef.current?.close();
+      resetPasswordRef.current?.close();
+    } else if (route === "verifyToken") {
+      verifyRef.current?.open();
+      forgotPasswordRef.current?.close();
+    } else if (route === "resetPassword") {
+      verifyRef.current?.close();
+      resetPasswordRef.current?.open();
+    } else if (route === "finalStep") {
+      resetPasswordRef.current?.close();
+      loginRef.current?.close();
+    } else if (route === "updateAccount") {
+      updateAccountRef.current?.close();
+    } else {
+      return null;
+    }
+  };
+
   return (
     <View
       style={{
@@ -86,6 +127,18 @@ const ProductsScreen = () => {
       ) : (
         <Loader setLoading={setLoading} />
       )}
+
+      <Login refRBSheet={loginRef} closeRBSheet={closeRBSheet} />
+      <Signup refRBSheet={signupRef} closeRBSheet={closeRBSheet} />
+      <ForgotPassword
+        refRBSheet={forgotPasswordRef}
+        closeRBSheet={closeRBSheet}
+      />
+      <ResetPassword
+        refRBSheet={resetPasswordRef}
+        closeRBSheet={closeRBSheet}
+      />
+      <VerifyToken refRBSheet={verifyRef} closeRBSheet={closeRBSheet} />
     </View>
   );
 };

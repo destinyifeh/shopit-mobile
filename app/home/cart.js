@@ -4,6 +4,11 @@ import React from "react";
 import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
 import CartItems from "../components/cartItems";
 import { Loader } from "../components/loader";
+import ForgotPassword from "../components/users/forgot-passsword";
+import Login from "../components/users/login";
+import ResetPassword from "../components/users/reset-password";
+import Signup from "../components/users/signup";
+import VerifyToken from "../components/users/verify-token";
 import { StoreContext } from "../context/store";
 import { getData, saveData } from "../utils/storage";
 export default function Cart(props) {
@@ -13,6 +18,13 @@ export default function Cart(props) {
   const navigation = useNavigation();
   const params = useSearchParams();
   const refRBSheet = React.useRef();
+
+  const loginRef = React.useRef();
+  const signupRef = React.useRef();
+  const forgotPasswordRef = React.useRef();
+  const resetPasswordRef = React.useRef();
+  const verifyRef = React.useRef();
+
   const { itemState, userState, state } = React.useContext(StoreContext);
   const item = params.item ? JSON.parse(params.item) : null;
   React.useEffect(() => {
@@ -28,9 +40,23 @@ export default function Cart(props) {
     }
   };
 
+  const guestAlert = () => {
+    Alert.alert(null, "Login to perform this operation", [
+      {
+        text: "Cancel",
+        style: "cancel",
+      },
+      {
+        text: "Login",
+        onPress: () => loginRef.current?.open(),
+      },
+    ]);
+  };
+
   const onCartPress = async (item) => {
     if (!userState.user._id) {
-      return Alert.alert(null, "Login to perform this operation");
+      guestAlert();
+      return;
     }
     let isExist = cartItems.find((cartItem) => cartItem._id === item._id)?._id;
     if (isExist) {
@@ -42,6 +68,35 @@ export default function Cart(props) {
     navigation.setOptions({ tabBarBadge: updatedCartItems.length });
     await saveData("cartItems", [...cartItems, item]);
     return true;
+  };
+
+  const closeRBSheet = (route) => {
+    if (route === "login") {
+      loginRef.current?.open();
+      signupRef.current?.close();
+      forgotPasswordRef.current?.close();
+    } else if (route === "signup") {
+      signupRef.current?.open();
+      loginRef.current?.close();
+    } else if (route === "forgotPassword") {
+      forgotPasswordRef.current?.open();
+      loginRef.current?.close();
+      verifyRef.current?.close();
+      resetPasswordRef.current?.close();
+    } else if (route === "verifyToken") {
+      verifyRef.current?.open();
+      forgotPasswordRef.current?.close();
+    } else if (route === "resetPassword") {
+      verifyRef.current?.close();
+      resetPasswordRef.current?.open();
+    } else if (route === "finalStep") {
+      resetPasswordRef.current?.close();
+      loginRef.current?.close();
+    } else if (route === "updateAccount") {
+      updateAccountRef.current?.close();
+    } else {
+      return null;
+    }
   };
   return (
     <View
@@ -77,7 +132,7 @@ export default function Cart(props) {
               <TouchableOpacity
                 onPress={() =>
                   !userState.user._id
-                    ? Alert.alert(null, "Login to perform this operation")
+                    ? guestAlert()
                     : navigation.reset({
                         index: 0,
                         routes: [{ name: "cart" }],
@@ -95,6 +150,18 @@ export default function Cart(props) {
       ) : (
         <Loader setLoading={setLoading} />
       )}
+
+      <Login refRBSheet={loginRef} closeRBSheet={closeRBSheet} />
+      <Signup refRBSheet={signupRef} closeRBSheet={closeRBSheet} />
+      <ForgotPassword
+        refRBSheet={forgotPasswordRef}
+        closeRBSheet={closeRBSheet}
+      />
+      <ResetPassword
+        refRBSheet={resetPasswordRef}
+        closeRBSheet={closeRBSheet}
+      />
+      <VerifyToken refRBSheet={verifyRef} closeRBSheet={closeRBSheet} />
     </View>
   );
 }
