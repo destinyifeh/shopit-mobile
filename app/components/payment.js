@@ -23,7 +23,7 @@ export const ItemPayment = ({ price, setShowPaymentModal }) => {
           setShowPaymentModal(false);
           await deleteData("cartItems");
           navigation.reset({ index: 0, routes: [{ name: "products" }] });
-          Alert.alert(null, "Your payment was successfull, continue shopping");
+          Alert.alert(null, "Your payment was successful, continue shopping");
         }}
         autoStart={true}
       />
