@@ -6,6 +6,7 @@ import {
   FlatList,
   RefreshControl,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 import { Loader } from "../components/loader";
@@ -32,6 +33,7 @@ const ProductsScreen = () => {
   const verifyRef = React.useRef();
 
   React.useEffect(() => {
+    console.log(itemState.loadingItem, "itemm");
     dispatchItem(getItems(dispatchItem, setLoading));
   }, []);
   const onRefresh = React.useCallback(() => {
@@ -110,9 +112,12 @@ const ProductsScreen = () => {
     }
   };
 
+  const getProducts = async () => {
+    dispatchItem(getItems(dispatchItem, setLoading));
+  };
   const onErrorOccurred = () => {
     return (
-      <View style={{ marginTop: 30 }}>
+      <View style={{ marginTop: 30, alignSelf: "center" }}>
         <Text>Oops! An error occurred while loading items</Text>
 
         <TouchableOpacity style={{ marginTop: 20 }} onPress={getProducts}>
@@ -134,7 +139,7 @@ const ProductsScreen = () => {
         backgroundColor: state.darkTheme ? "#121212" : "white",
       }}
     >
-      {loading === false && itemState.loadingItem === false ? (
+      {loading === false || itemState.loadingItem === false ? (
         <>
           {itemState.isItemError === true ? onErrorOccurred() : itemContent()}
         </>

@@ -7,7 +7,7 @@ export const itemInitialState = {
   fulfilled: false,
   isItemError: false,
   isLoading: false,
-  loadingItem: false,
+  loadingItem: true,
   notifications: [],
 };
 

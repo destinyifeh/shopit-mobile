@@ -51,6 +51,7 @@ export const Products = ({
       console.log(err);
       setLoading(false);
       setError(true);
+      return false;
     }
   }
 
