@@ -93,8 +93,6 @@ export default function SearchItem({
     } else if (route === "finalStep") {
       resetPasswordRef.current?.close();
       loginRef.current?.close();
-    } else if (route === "updateAccount") {
-      updateAccountRef.current?.close();
     } else {
       return null;
     }

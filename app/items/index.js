@@ -24,7 +24,7 @@ export default function Items({
   const { itemState, dispatchItem } = React.useContext(StoreContext);
   const [option, setOption] = React.useState(initialState);
   const [val, setVal] = React.useState("");
-  const [loading, setLoading] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
   React.useEffect(() => {
     getUpdatedState();
     dispatchItem(getItems(dispatchItem, setLoading));

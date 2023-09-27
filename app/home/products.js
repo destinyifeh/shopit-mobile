@@ -32,7 +32,7 @@ const ProductsScreen = () => {
   const verifyRef = React.useRef();
 
   React.useEffect(() => {
-    dispatchItem(getItems(dispatchItem));
+    dispatchItem(getItems(dispatchItem, setLoading));
   }, []);
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -105,12 +105,24 @@ const ProductsScreen = () => {
     } else if (route === "finalStep") {
       resetPasswordRef.current?.close();
       loginRef.current?.close();
-    } else if (route === "updateAccount") {
-      updateAccountRef.current?.close();
     } else {
       return null;
     }
   };
+
+  const onErrorOccurred = () => {
+    return (
+      <View style={{ marginTop: 30 }}>
+        <Text>Oops! An error occurred while loading items</Text>
+
+        <TouchableOpacity style={{ marginTop: 20 }} onPress={getProducts}>
+          <Text style={{ textAlign: "center", color: "blue" }}>Reload</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
+  const isProduct = true;
 
   return (
     <View
@@ -123,9 +135,11 @@ const ProductsScreen = () => {
       }}
     >
       {loading === false ? (
-        <>{itemContent()}</>
+        <>
+          {itemState.isItemError === true ? onErrorOccurred() : itemContent()}
+        </>
       ) : (
-        <Loader setLoading={setLoading} />
+        <Loader setLoading={setLoading} style={{}} isProduct={isProduct} />
       )}
 
       <Login refRBSheet={loginRef} closeRBSheet={closeRBSheet} />

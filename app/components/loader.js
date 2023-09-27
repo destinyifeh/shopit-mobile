@@ -1,13 +1,15 @@
 import React from "react";
 import { ActivityIndicator, View } from "react-native";
 import { StoreContext } from "../context/store";
-export const Loader = ({ setLoading, style }) => {
+export const Loader = ({ setLoading, style, isProduct }) => {
   const { state } = React.useContext(StoreContext);
 
   React.useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
+    if (!isProduct) {
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+    }
   }, []);
 
   return (

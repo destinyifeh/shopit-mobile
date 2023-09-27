@@ -5,7 +5,9 @@ export const getLike = async (
   itemState,
   userState,
   dispatchItem,
-  loginRef
+  loginRef,
+  setData,
+  data
 ) => {
   const userId = userState?.user._id;
 
@@ -28,10 +30,10 @@ export const getLike = async (
   );
 
   if (!checkProductId) {
-    await updateLike(userId, productId, dispatchItem);
-  } else {
-    await updateLike(userId, productId, dispatchItem);
+    await updateLike(userId, productId, dispatchItem, setData, data);
+    return;
   }
+  await updateLike(userId, productId, dispatchItem, setData, data);
 };
 
 export const transformText = (val) => {

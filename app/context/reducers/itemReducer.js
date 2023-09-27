@@ -5,6 +5,8 @@ export const itemInitialState = {
   pending: false,
   error: null,
   fulfilled: false,
+  isItemError: false,
+  isLoading: false,
   notifications: [],
 };
 
@@ -22,6 +24,8 @@ export const itemReducer = (state, action) => {
         ...state,
         pending: action.pending,
         fulfilled: action.fulfilled,
+        isLoading: action.isLoading,
+        isItemError: action.isItemError,
         items: action.payload,
       };
     case actionTypes.DELETE_ITEM:
@@ -66,6 +70,8 @@ export const itemReducer = (state, action) => {
         error: action.payload,
         pending: action.pending,
         fulfilled: action.fulfilled,
+        isLoading: action.isLoading,
+        isItemError: action.isItemError,
       };
     case actionTypes.GET_NOTIFICATIONS:
       return {

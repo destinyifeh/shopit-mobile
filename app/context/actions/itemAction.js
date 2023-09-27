@@ -40,22 +40,32 @@ export const addItem = async (value, dispatchItem, setValue, navigation) => {
   }
 };
 export const getItems = async (dispatchItem, setLoading) => {
+  dispatchItem({
+    isLoading: true,
+  });
+
   try {
     setLoading(true);
     let res = await requester.get("/items");
-    console.log(res.data, "items data");
-    if (res.data?.length > 0) {
-      dispatchItem({
-        type: actionTypes.GET_ITEMS,
-        payload: res?.data,
-        pending: false,
-        fulfilled: true,
-      });
-      setLoading(false);
-    }
+    dispatchItem({
+      type: actionTypes.GET_ITEMS,
+      payload: res?.data,
+      pending: false,
+      fulfilled: true,
+      isItemError: false,
+      isLoading: false,
+    });
+    setLoading(false);
   } catch (err) {
-    // dispatchItem({ type: actionTypes.ADD_ITEM, payload: err?.message });
     console.log(err.message, "error");
+    dispatchItem({
+      type: actionTypes.ERROR,
+      payload: err.message,
+      fulfilled: false,
+      pending: false,
+      isItemError: true,
+      isLoading: false,
+    });
   }
 };
 
@@ -220,13 +230,34 @@ export const updateNotification = async (
   }
 };
 
-export const updateLike = async (userId, productId, dispatchItem) => {
+export const updateLike = async (
+  userId,
+  productId,
+  dispatchItem,
+  setData,
+  data
+) => {
   const value = {
     likedBy: userId + productId,
   };
   try {
     const res = await requester.patch(`/item/like/${productId}`, value);
 
+    if (data) {
+      const mainData = data.map((item) =>
+        item._id === res.data._id
+          ? {
+              ...item,
+              title: res.data.title,
+              price: res.data.price,
+              desc: res.data.desc,
+              image: res.data.image,
+              likedBy: res.data.likedBy,
+            }
+          : item
+      );
+      setData(mainData);
+    }
     dispatchItem({
       type: actionTypes.UPDATE_ITEM,
       payload: res.data,
