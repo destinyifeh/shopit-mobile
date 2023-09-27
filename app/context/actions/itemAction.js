@@ -42,6 +42,7 @@ export const addItem = async (value, dispatchItem, setValue, navigation) => {
 export const getItems = async (dispatchItem, setLoading) => {
   dispatchItem({
     isLoading: true,
+    loadingItem: true,
   });
 
   try {
@@ -54,6 +55,7 @@ export const getItems = async (dispatchItem, setLoading) => {
       fulfilled: true,
       isItemError: false,
       isLoading: false,
+      loadingItem: false,
     });
     setLoading(false);
   } catch (err) {
@@ -65,6 +67,7 @@ export const getItems = async (dispatchItem, setLoading) => {
       pending: false,
       isItemError: true,
       isLoading: false,
+      loadingItem: false,
     });
   }
 };

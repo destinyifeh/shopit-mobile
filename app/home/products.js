@@ -134,7 +134,7 @@ const ProductsScreen = () => {
         backgroundColor: state.darkTheme ? "#121212" : "white",
       }}
     >
-      {loading === false ? (
+      {loading === false && itemState.loadingItem === false ? (
         <>
           {itemState.isItemError === true ? onErrorOccurred() : itemContent()}
         </>

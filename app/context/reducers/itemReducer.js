@@ -7,6 +7,7 @@ export const itemInitialState = {
   fulfilled: false,
   isItemError: false,
   isLoading: false,
+  loadingItem: false,
   notifications: [],
 };
 
@@ -27,6 +28,7 @@ export const itemReducer = (state, action) => {
         isLoading: action.isLoading,
         isItemError: action.isItemError,
         items: action.payload,
+        loadingItem: action.loadingItem,
       };
     case actionTypes.DELETE_ITEM:
       return {
@@ -72,6 +74,7 @@ export const itemReducer = (state, action) => {
         fulfilled: action.fulfilled,
         isLoading: action.isLoading,
         isItemError: action.isItemError,
+        loadingItem: action.loadingItem,
       };
     case actionTypes.GET_NOTIFICATIONS:
       return {
