@@ -163,6 +163,8 @@ export default function Header(props) {
           position: "absolute",
           top: 70,
           alignSelf: "center",
+          left: 75,
+          paddingTop: 10,
           color: props.state.darkTheme ? "white" : "black",
         }}
       >

@@ -39,7 +39,12 @@ export const NewCollections = (props) => {
             navigation.navigate("products")
           }
         >
-          <H3 style={{ color: props.state.darkTheme ? "white" : "black" }}>
+          <H3
+            style={{
+              color: props.state.darkTheme ? "white" : "black",
+              fontSize: 16,
+            }}
+          >
             See All
           </H3>
         </TouchableOpacity>

@@ -60,6 +60,8 @@ export const getItems = async (dispatchItem, setLoading) => {
     setLoading(false);
   } catch (err) {
     console.log(err.message, "error");
+    setLoading(false);
+
     dispatchItem({
       type: actionTypes.ERROR,
       payload: err.message,

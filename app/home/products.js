@@ -32,10 +32,18 @@ const ProductsScreen = () => {
   const resetPasswordRef = React.useRef();
   const verifyRef = React.useRef();
 
+  const fetchData = async () => {
+    try {
+      await getItems(dispatchItem, setLoading);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
   React.useEffect(() => {
-    console.log(itemState.loadingItem, "itemm");
-    dispatchItem(getItems(dispatchItem, setLoading));
+    fetchData();
   }, []);
+
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     dispatchItem(getItems(dispatchItem));
@@ -113,7 +121,7 @@ const ProductsScreen = () => {
   };
 
   const getProducts = async () => {
-    dispatchItem(getItems(dispatchItem, setLoading));
+    fetchData();
   };
   const onErrorOccurred = () => {
     return (
@@ -139,7 +147,7 @@ const ProductsScreen = () => {
         backgroundColor: state.darkTheme ? "#121212" : "white",
       }}
     >
-      {loading === false || itemState.loadingItem === false ? (
+      {loading === false ? (
         <>
           {itemState.isItemError === true ? onErrorOccurred() : itemContent()}
         </>
