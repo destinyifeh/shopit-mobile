@@ -204,14 +204,14 @@ export const MainProducts = ({ item, getLike, itemState, loginRef }) => {
           }
         >
           <Entypo
-            name="heart-outlined"
+            name={item.likedBy === userState.user._id + item._id?"heart":"heart-outlined"}
             size={20}
             color={
               item.likedBy === userState.user._id + item._id ? "red" : "grey"
             }
           />
         </TouchableOpacity>
-        <Text
+        {/* <Text
           style={{
             position: "absolute",
             top: 35,
@@ -221,7 +221,7 @@ export const MainProducts = ({ item, getLike, itemState, loginRef }) => {
           }}
         >
           {item.likedBy === userState.user._id + item._id ? "liked" : null}
-        </Text>
+        </Text> */}
         <Image
           source={{ uri: item.image }}
           style={{ width: 150, height: 200, borderRadius: 10 }}
@@ -283,14 +283,14 @@ export const LikesProducts = ({ item, getLike, itemState }) => {
           onPress={() => getLike(item._id, itemState, userState, dispatchItem)}
         >
           <Entypo
-            name="heart-outlined"
+            name={item.likedBy === userState.user._id + item._id?"heart":"heart-outlined"}
             size={20}
             color={
               item.likedBy === userState.user._id + item._id ? "red" : "grey"
             }
           />
         </TouchableOpacity>
-        <Text
+        {/* <Text
           style={{
             position: "absolute",
             top: 35,
@@ -300,7 +300,7 @@ export const LikesProducts = ({ item, getLike, itemState }) => {
           }}
         >
           {item.likedBy === userState.user._id + item._id ? "liked" : null}
-        </Text>
+        </Text> */}
         <Image
           source={{ uri: item.image }}
           style={{ width: 150, height: 200, borderRadius: 10 }}

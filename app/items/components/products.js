@@ -302,7 +302,7 @@ export const Products = ({
                             }
                           >
                             <Entypo
-                              name="heart-outlined"
+                              name={ item.likedBy === userState.user._id + item._id?"heart":"heart-outlined"}
                               size={20}
                               color={
                                 item.likedBy === userState.user._id + item._id
@@ -313,7 +313,7 @@ export const Products = ({
                           </TouchableOpacity>
                         )}
                       </>
-                      <Text
+                      {/* <Text
                         style={{
                           position: "absolute",
                           top: 35,
@@ -325,7 +325,7 @@ export const Products = ({
                         {item.likedBy === userState.user._id + item._id
                           ? "liked"
                           : null}
-                      </Text>
+                      </Text> */}
 
                       <Image
                         resizeMode="contain"

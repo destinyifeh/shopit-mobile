@@ -44,13 +44,13 @@ const ProductsScreen = () => {
     fetchData();
   }, []);
 
-  const onRefresh = React.useCallback(() => {
+  const onRefresh = async()=>{
     setRefreshing(true);
-    dispatchItem(getItems(dispatchItem));
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 3000);
-  }, [itemState, getItems, dispatchItem, refreshing]);
+   await  getItems(dispatchItem);
+  setTimeout(() => {
+    setRefreshing(false);
+ }, 3000);
+  };
   const itemContent = () => {
     return (
       <>
