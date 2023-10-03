@@ -28,7 +28,11 @@
         "backgroundColor": "#FFFFFF"
       },
       "versionCode": 1,
-      "package": "com.destech.shopit"
+      "package": "com.destech.shopit",
+      "permissions": [
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ]
     },
     "extra": {
       "eas": {

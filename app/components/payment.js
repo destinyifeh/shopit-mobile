@@ -1,5 +1,5 @@
 import { useNavigation } from "expo-router";
-import { Alert, View } from "react-native";
+import { View } from "react-native";
 import { Paystack } from "react-native-paystack-webview";
 import { deleteData } from "../utils/storage";
 export const ItemPayment = ({ price, setShowPaymentModal }) => {
@@ -19,11 +19,26 @@ export const ItemPayment = ({ price, setShowPaymentModal }) => {
         }}
         onSuccess={async (res) => {
           // handle response here
-          console.log(res, "restooo");
+          console.log(res.data, "restooo");
+          const { transactionRef } = res.data;
           setShowPaymentModal(false);
           await deleteData("cartItems");
-          navigation.reset({ index: 0, routes: [{ name: "products" }] });
-          Alert.alert(null, "Your payment was successful, continue shopping");
+          navigation.reset({
+            index: 0,
+            routes: [
+              {
+                name: "products",
+                params: {
+                  showReceipt: true,
+                  reference: transactionRef.reference,
+                  message: transactionRef.message,
+                  status: transactionRef.status,
+                  amount: price,
+                },
+              },
+            ],
+          });
+          // Alert.alert(null, "Your payment was successful, continue shopping");
         }}
         autoStart={true}
       />

@@ -1,4 +1,4 @@
-import { useNavigation } from "expo-router";
+import { useNavigation, useSearchParams } from "expo-router";
 import React from "react";
 import {
   ActivityIndicator,
@@ -10,6 +10,7 @@ import {
   View,
 } from "react-native";
 import { Loader } from "../components/loader";
+import Receipt from "../components/receipt";
 import ForgotPassword from "../components/users/forgot-passsword";
 import Login from "../components/users/login";
 import ResetPassword from "../components/users/reset-password";
@@ -31,7 +32,9 @@ const ProductsScreen = () => {
   const forgotPasswordRef = React.useRef();
   const resetPasswordRef = React.useRef();
   const verifyRef = React.useRef();
-
+  const receiptRef = React.useRef();
+  const params = useSearchParams();
+  console.log(params, "ppp");
   const fetchData = async () => {
     try {
       await getItems(dispatchItem, setLoading);
@@ -42,14 +45,21 @@ const ProductsScreen = () => {
 
   React.useEffect(() => {
     fetchData();
+    showReceiptModal();
   }, []);
 
-  const onRefresh = async()=>{
+  function showReceiptModal() {
+    if (params?.showReceipt) {
+      receiptRef.current?.open();
+    }
+  }
+
+  const onRefresh = async () => {
     setRefreshing(true);
-   await  getItems(dispatchItem);
-  setTimeout(() => {
-    setRefreshing(false);
- }, 3000);
+    await getItems(dispatchItem);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 3000);
   };
   const itemContent = () => {
     return (
@@ -166,6 +176,8 @@ const ProductsScreen = () => {
         closeRBSheet={closeRBSheet}
       />
       <VerifyToken refRBSheet={verifyRef} closeRBSheet={closeRBSheet} />
+
+      <Receipt refRBSheet={receiptRef} paymentInfo={params} />
     </View>
   );
 };
