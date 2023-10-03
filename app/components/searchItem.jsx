@@ -1,14 +1,7 @@
 import { Entypo, EvilIcons, FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "expo-router";
 import React from "react";
-import {
-  Alert,
-  Image,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Alert, Image, ScrollView, TouchableOpacity, View } from "react-native";
 import { Badge } from "react-native-ui-lib";
 import BottomSheet from "../components/bottomSheet";
 import { Loader } from "../components/loader";
@@ -293,7 +286,11 @@ export default function SearchItem({
                               }
                             >
                               <Entypo
-                                name="heart-outlined"
+                                name={
+                                  item.likedBy === userState.user._id + item._id
+                                    ? "heart"
+                                    : "heart-outlined"
+                                }
                                 size={20}
                                 color={
                                   item.likedBy === userState.user._id + item._id
@@ -304,7 +301,7 @@ export default function SearchItem({
                             </TouchableOpacity>
                           )}
                         </>
-                        <Text
+                        {/* <Text
                           style={{
                             position: "absolute",
                             top: 35,
@@ -316,7 +313,7 @@ export default function SearchItem({
                           {item.likedBy === userState.user._id + item._id
                             ? "liked"
                             : null}
-                        </Text>
+                        </Text> */}
 
                         <Image
                           resizeMode="contain"
